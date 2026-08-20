@@ -1,0 +1,28 @@
+[project]
+name = "poi-business"
+version = "0.1.0"
+description = "Add your description here"
+readme = "README.md"
+authors = [
+    { name = "zenzenzense520-bit", email = "zenzenzense520@example.com" }
+]
+requires-python = ">=3.11"
+dependencies = [
+    "esda>=2.9.0",
+    "folium>=0.20.0",
+    "keplergl>=0.3.7",
+    "pointpats>=2.5.5",
+    "python-dotenv>=1.2.3",
+    "requests>=2.34.2",
+    "scikit-learn>=1.9.0",
+    "setuptools<81",
+    "splot>=1.1.7",
+    "tqdm>=4.70.0",
+]
+
+[project.scripts]
+poi-business = "poi_business:main"
+
+[build-system]
+requires = ["uv_build>=0.12.5,<0.13.0"]
+build-backend = "uv_build"

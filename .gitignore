@@ -1,0 +1,19 @@
+# Python-generated files
+__pycache__/
+*.py[oc]
+build/
+dist/
+wheels/
+*.egg-info
+
+# Virtual environments
+.venv
+
+# Secrets: 高德 API Key
+.env
+
+# 抓取数据与日志（体积大且可再生成）
+data/
+logs/
+*.csv.gz
+
