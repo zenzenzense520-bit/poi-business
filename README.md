@@ -1,6 +1,6 @@
 # Beijing POI 商业空间结构分析
 
-基于高德 POI 数据的北京市商业空间结构研究（GIS 本科课程项目）。
+基于高德 POI 数据的北京市商业空间结构研究。
 
 ## 技术栈
 
@@ -10,9 +10,9 @@ Python 3.11 + uv · geopandas · PySAL(esda/splot/pointpats) · scikit-learn · 
 
 通过高德 Web 服务 API（`/v3/place/polygon`）按"研究区域网格 × POI 大类"全量抓取：
 
-- 研究区域：`city`（中心六区，推荐）或 `beijing`（全市域）
+- 研究区域：`city`（中心六区）
 - 网格边长：默认 0.05°（约 5.5km），可调小提高覆盖精度
-- POI 大类：餐饮/购物/体育休闲/医疗/住宿/金融保险/公司企业（可配置）
+- POI 大类：餐饮/购物/体育休闲/医疗/住宿/金融保险/公司企业
 
 ### 限速与断点续传
 
@@ -20,7 +20,7 @@ Python 3.11 + uv · geopandas · PySAL(esda/splot/pointpats) · scikit-learn · 
 - 重试：网络错误指数退避（1/2/4/8s）
 - 断点：原始响应分页落盘 `data/raw/chunks/`，进度 `progress.json`，
   已完成的 (网格, 类型) 重跑自动跳过；配额用尽后重跑即可续传
-- API Key 存于 `.env`（已被 .gitignore 排除，不入库）
+- API Key 存于 `.env`
 
 ## 使用
 
