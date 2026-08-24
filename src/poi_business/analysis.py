@@ -4,6 +4,7 @@
 
 Step 2: 核密度估计 (KDE)
 Step 2.5: 平均最近邻 (ANN)
+Step 2.7: Ripley's K 多尺度集聚
 Step 3: 全局/局部 Moran's I
 Step 4: DBSCAN 商圈聚类
 Step 5: 等级体系专题图
@@ -22,7 +23,7 @@ import argparse
 import sys
 from pathlib import Path
 
-from .analysis_modules import step2_5_ann, step2_kde, step3_moran, step4_dbscan, step5_map
+from .analysis_modules import step2_5_ann, step2_7_ripley, step2_kde, step3_moran, step4_dbscan, step5_map
 from .analysis_modules.utils import OUT_DIR, load_data, make_grid
 from .logging_config import get_logger, setup_logging
 
@@ -39,8 +40,8 @@ def main() -> int:
     parser.add_argument(
         "--step",
         type=int,
-        choices=[2, 25, 3, 4, 5],
-        help="运行指定步骤 (2=KDE, 25=ANN, 3=Moran, 4=DBSCAN, 5=地图)，默认运行全部",
+        choices=[2, 25, 27, 3, 4, 5],
+        help="步骤 (2=KDE, 25=ANN, 27=RipleyK, 3=Moran, 4=DBSCAN, 5=地图)，默认全部",
     )
     args = parser.parse_args()
 
@@ -60,10 +61,13 @@ def main() -> int:
         logger.error("数据加载失败: %s", e)
         return 1
 
-    steps = [args.step] if args.step else [2, 25, 3, 4, 5]
+    steps = [args.step] if args.step else [2, 25, 27, 3, 4, 5]
     logger.info("执行步骤: %s", steps)
 
-    step_funcs = {2: step2_kde, 25: step2_5_ann, 3: step3_moran, 4: step4_dbscan, 5: step5_map}
+    step_funcs = {
+        2: step2_kde, 25: step2_5_ann, 27: step2_7_ripley,
+        3: step3_moran, 4: step4_dbscan, 5: step5_map,
+    }
     for step in steps:
         try:
             step_funcs[step](df)
